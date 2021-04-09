@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="https://rockethour.s3.af-south-1.amazonaws.com/Javascript%26CSS/rockethourcss.css">
+
+<body class ="rhcourse">
+    <script src= "https://rockethour.s3.af-south-1.amazonaws.com/Javascript%26CSS/showHintButton.js"></script>
+
+<div class = "rhmain_div">
+
+    <div class = "rhtitle rhsection">
+        <h1 class = "rhcenter">{title}</h1>
+        <h2 class = "rhcenter">{subtitle}</h2>
+    </div>
+
+    <div class {instruction_show} = "rhflex-box">
+        <div class = "rhinstructions rhsection">
+            <h2 class = "rhcenter" >INSTRUCTIONS</h2>            
+            <ol>
+                {instruction}
+            </ol>
+
+        </div>
+
+        <div class {hint_show} = "rhhints rhsection">
+            <h2 class = "rhcenter">HINTS</h2>
+            <ul id = "rhhintsinner" style="display: none">
+                {hint}
+            </ul>
+            <button class='rhbutton' id='hintbutton' onclick="hintsToggle()">SHOW HINTS</button>
+        </div>
+
+    </div>
+
+    <div class {example_show}= "rhexample rhsection">
+
+            {example}
+
+    </div>
+
+</div>
