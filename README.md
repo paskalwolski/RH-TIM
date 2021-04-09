@@ -12,7 +12,7 @@ Currently, we utilise a combination of a Shared Google Drive to store all docume
 
 Drive for Desktop is used at ThinkCamp. This allows a Google Drive to be mapped as a local drive (mounted at G: by default), and prior to API implementation, this is the drive that will be used to manouever files. 
 
-##################
+#
 FILE CONVENTIONS #
 ------------------
 Within the 'Product' Drive Folder, file structure is as follows:
@@ -44,7 +44,7 @@ Within each 'lesson' folder, there will be a series of subfolders as follows:
     -Shrinking Sam the Sheep.livecode   #Emtpy/Lesson project file
   -Shrinking Sam the Sheep COMPLETE.livecode #LiveCode Project File
 
-##########
+#
 API KEYS #
 ----------
 TIM currently has no use for API keys, as all work has been done locally. However, Drive and S3 API's are on the Horizon. 
