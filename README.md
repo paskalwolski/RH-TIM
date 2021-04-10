@@ -1,5 +1,5 @@
 # RH-TIM
-CSV to HTML script for RocketHour. A little insecure...
+The Incredible lessonMaker
 
 TIM (The Incredible lessonMaker) is a utility developed for RocketHour (a division of ThinkCamp) to quickly apply a csv file - created from an excel sheet - to an HTML template ("HTMLTemplate.html") for upload to our Learning Management System. 
 
