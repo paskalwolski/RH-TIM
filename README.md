@@ -31,7 +31,7 @@ Each Lesson will be identified by its unique Three Word Identifier. The assignme
 
 Within each 'lesson' folder, there will be a series of subfolders as follows:
 
--Shrinking Sam the Sheep/
+```-Shrinking Sam the Sheep/
   -assets/     #A folder that stores all images, animations, characters etc. used in the creation of the lesson
   -HTML/       #A folder that stores all generated cards
   -src/        #A folder that stores generated JSON objects for long term storage, as well as the .csv file that is currently in use
@@ -39,11 +39,14 @@ Within each 'lesson' folder, there will be a series of subfolders as follows:
     -Shrinking Sam the Sheep.csv
   -Shrinking Sam the Sheep.gsheet   #The Google Sheet that handles card creation
   -old/        #(OPTIONAL) An archive for storing old versions of lessons. There will be a function to grab the current lesson, and pack and dump it here
- 
+ ```
+
  Additionally, for LiveCode Lessons (advanced track) the directory will be include the following:
-  -student/   #Folder for storing all files provided to the student
+ 
+``` -student/   #Folder for storing all files provided to the student
     -Shrinking Sam the Sheep.livecode   #Emtpy/Lesson project file
   -Shrinking Sam the Sheep COMPLETE.livecode #LiveCode Project File
+```
 
 #
 API KEYS #
