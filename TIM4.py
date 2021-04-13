@@ -87,7 +87,7 @@ def find_google_drive(volume):
 
     except FileNotFoundError:
         clear()
-        print("Google Drive is not mounted at G:")
+        print("Google Drive is not mounted at {}".format(volume))
         print("Running Backup Search")
         check_mount_point()
 
@@ -97,6 +97,7 @@ def find_google_drive(volume):
 # Get User  input to find Google Drive Volume
 def check_mount_point():
     mount_point = input("Please enter the Volume Label that Google Drive is mounted at:\n")
+    mount_point.strip(':', ' ')
     try:
         os.chdir(mount_point +  ':')
         clear()
