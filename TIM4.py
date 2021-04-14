@@ -10,37 +10,25 @@
 
 #Imports
 import os
+import time
 #import  HAP   #Coming Soon
 
-
-# class Main():
-    # Is this necessary? Might not need to have 'main' class
-    # def __init__(self):
-    #     #Class Variable Declaration for each instance of the program (Should  only be  1)
-    #     self.track = None
-    #     self.lesson_name = None
-    #     self.lesson_number = None
-    #     self.cwd = None
-    #     self.menu_options = None
-
-    #     #Class Variable Definition
-    #     self.loc = os.getcwd()
-    #     return None
-    
-    #clear command line
-
-
-track = None
 
 #Main Thread
 #######################################
 
+#Script Variable Declaration
+cwd = None
+
 def main():
     clear()
-    print("Welcome to TIM4!")
-    menu = (("Access Google Drive", find_google_drive), ("Something Else I guess", on_close)) #Rethink this
-    menu_action(menu, main)
+    # print("Welcome to TIM4!")
+
+
+    # menu = (("Access Google Drive", find_google_drive), ("Something Else I guess", on_close)) #Rethink this
+    # menu_action(menu, main)
     
+    find_google_drive("G")
     
     # k = input()
     # if k=='1':
@@ -80,9 +68,11 @@ def menu_action(menu, catch):
 # If not found, search for drive name ('Google Drive')
 def find_google_drive(volume):
     try:
-        os.chdir(volume)
+        print("Searching at {}".format(volume))
+        os.chdir("{}:".format(volume))
         print("Found Google Drive")
-        input()
+        set_cwd(volume)
+        time.sleep(1)
         return None
 
     except FileNotFoundError:
@@ -97,7 +87,7 @@ def find_google_drive(volume):
 # Get User  input to find Google Drive Volume
 def check_mount_point():
     mount_point = input("Please enter the Volume Label that Google Drive is mounted at:\n")
-    mount_point.strip(':', ' ')
+    mount_point.strip(':')
     try:
         os.chdir(mount_point +  ':')
         clear()
@@ -127,6 +117,11 @@ def check_mount_point():
             
 #Utility Functions for use from main method
 #######################################
+
+
+def set_cwd(dir):
+    os.chdir(dir)
+    print("cwd set")
 
 def clear():
     os.system('cls')
