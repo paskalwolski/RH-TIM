@@ -3,7 +3,7 @@ import csv
 import fnmatch
 import os
 import urllib.request
-
+import time
 
 #ROCKET LAUNCH
 #TODO: Sanitize subtitle name for special characters
@@ -15,7 +15,11 @@ import urllib.request
 # Only 1 csv file should be present. Otherwise script gets confused.
 toOpen = None
 
+#cwd - location the script is running from
 dir_path = None
+
+#Check if the dir structure is good for work
+good_dir = None
 
 # Lesson information - See 'Lesson Information' block below
 lessonname = None
@@ -25,38 +29,76 @@ req_folders = ("assets", "HTML",  "res", "src", "Student Files")
 
 
 def main():
+
+    print("Welcome to TIM v3.4!")
+    print("What do you want to do today?\n\n")
+
+    k = input("1. Create HTML Cards\n2. Create Lesson Structure here\nq. Quit\n\n")
+    if k=='1':
+        clear()
+        print("Creating HTML Cards")
+        if check_csv():
+            pass
+        else:
+            print("CSV not found...")
+            
+
+
+    elif k=='2':
+        clear()
+        print("Creating Lesson Structure\n")
+        check_lesson()
+        print("\n\nReady to Work!")
+        input("\'Enter\' to Continue")
+        clear()
+        main()
+
+    elif k=='q':
+        clear()
+        on_quit()
+
+    else:
+        clear()
+        print("I wasn't expecting that...")
+        main()
+
     
-    find_cwd()
-    check_lesson()
-    check_csv()
+    
+    # check_lesson()
+    # check_csv()
 
 
 def check_lesson():
     for folder in req_folders:
-        print("Checking for {}".format(folder), end='')
+        print("Checking for {}...".format(folder).ljust(50), end='')
         if folder in os.listdir(dir_path):
-            print("\tFound")
+            print("Found")
         else:
-            print("\tNot Found")
+            print("Not Found")
             make_dir(folder)
 
     return None
 
 def check_csv():
-    print("Checking for CSV...", end = '')
+    print("Checking for CSV in src folder...", end = '')
     
+    #TODO: And current place of work. Look in the 'src' folder for it. 
+
+    print("CSV not found in \'src\' folder.")
+
 
     for file in os.listdir(dir_path):
         if fnmatch.fnmatch(file, '*.csv'): 
             toOpen = os.path.join(dir_path, file)
             lessonname = str(file).split('-')[0].strip()    #Now you don't need to change the filename
-            break
-        print("Working with Lesson " + lessonname)
+            print("Working with Lesson " + lessonname)
+            return True
+        
 
-    return None
+    return False
 
 def make_dir(folder_name):
-    print("\tCreating folder {}...".format(folder_name), end='')
+    print("\tCreating folder {}...".format(folder_name).ljust(20), end='')
     try:
         os.mkdir(folder_name)
         print("Done")
@@ -66,7 +108,10 @@ def make_dir(folder_name):
 
 def find_cwd():
     try:
+        clear()
+        print("Where am I...")
         dir_path = os.path.dirname(os.path.realpath(__file__))
+        print("Here!\n")
     except Exception as e:
         log(e)
 
@@ -280,10 +325,14 @@ def log(e):
     print("Something went wrong...")
     print(e)
     input()
-    quit()
+    on_quit()
     pass
 
+def on_quit():
+    print("Goodbye")
 
 
 if __name__ == '__main__':
-    create_html()
+    clear()
+    find_cwd()
+    main()
