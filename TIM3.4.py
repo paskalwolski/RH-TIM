@@ -18,11 +18,8 @@ toOpen = None
 #cwd - location the script is running from
 dir_path = None
 
-#Check if the dir structure is good for work
-good_dir = None
-
 # Lesson information - See 'Lesson Information' block below
-lessonname = None
+lesson_id = None
 
 #Required folders per lesson
 req_folders = ("assets", "HTML",  "res", "src", "Student Files")
@@ -30,7 +27,6 @@ req_folders = ("assets", "HTML",  "res", "src", "Student Files")
 
 def main():
 
-    print("Welcome to TIM v3.4!")
     print("What do you want to do today?\n\n")
 
     k = input("1. Create HTML Cards\n2. Create Lesson Structure here\nq. Quit\n\n")
@@ -41,9 +37,6 @@ def main():
             pass
         else:
             print("CSV not found...")
-            
-
-
     elif k=='2':
         clear()
         print("Creating Lesson Structure\n")
@@ -51,21 +44,14 @@ def main():
         print("\n\nReady to Work!")
         input("\'Enter\' to Continue")
         clear()
-        main()
-
+        main()      #BAD! If you run the program multiple times, you'll have a stack of instances running.  
     elif k=='q':
         clear()
         on_quit()
-
     else:
         clear()
-        print("I wasn't expecting that...")
+        print("I wasn't expecting that...\n\n")
         main()
-
-    
-    
-    # check_lesson()
-    # check_csv()
 
 
 def check_lesson():
@@ -79,23 +65,48 @@ def check_lesson():
 
     return None
 
+
 def check_csv():
-    print("Checking for CSV in src folder...", end = '')
+    print("Checking for CSV in src folder...")
+    try:
+        os.chdir('src')
+    except FileNotFoundError:
+        k = input("\'src\' folder not found. Do you want to create the lesson structure? y/n\n")
+        clear()
+        if k == ('y' or 'yes'):
+            print("Creating Lesson Structure...")
+            check_lesson()
+        elif k == ('n' or 'no'):
+            print("You will have to make sure the lesson structure is in place!")
+            main()
+        else:
+            print("I wasn't expecting that...")
+            input("Press \'Enter\' to try again")
+            clear()
+            check_csv()
+        
     
-    #TODO: And current place of work. Look in the 'src' folder for it. 
-
-    print("CSV not found in \'src\' folder.")
-
-
-    for file in os.listdir(dir_path):
-        if fnmatch.fnmatch(file, '*.csv'): 
-            toOpen = os.path.join(dir_path, file)
-            lessonname = str(file).split('-')[0].strip()    #Now you don't need to change the filename
-            print("Working with Lesson " + lessonname)
-            return True
         
 
+def find_csv(path):
+    for file in os.listdir():
+            if fnmatch.fnmatch(file, '*.csv'): 
+                set_csv(file)
+                return True
     return False
+
+
+def set_csv(csv_file):
+    print("Setting csv file to {}".format(csv_file))
+    toOpen = os.path.join(dir_path, csv_file)
+    try:
+        lesson_id = str(csv_file).split('-')[0].strip()    #Now you don't need to change the filename
+    except:
+        lesson_id = str(csv_file)[:-4]  #Drop'.csv' extension to get lessonID
+    print("Working with Lesson " + lesson_id)
+
+    return False
+
 
 def make_dir(folder_name):
     print("\tCreating folder {}...".format(folder_name).ljust(20), end='')
@@ -119,9 +130,9 @@ def create_html():
     challenge_list = []
 
     # Block to fill in lesson information
-    track_id = lessonname[:2].lower()
-    lesson_id = lessonname[3:].lower()
-    bucket = "https://rockethour.s3.af-south-1.amazonaws.com/product_development/{TRACK}/{LESSON}".format(TRACK=track_id, LESSON=lesson_id)
+    track_id = lesson_id[:2].lower()
+    lesson_num = lesson_id[3:].lower()
+    bucket = "https://rockethour.s3.af-south-1.amazonaws.com/product_development/{TRACK}/{LESSON}".format(TRACK=track_id, LESSON=lesson_num)
 
 
     # Variables used for error checking 
@@ -330,9 +341,11 @@ def log(e):
 
 def on_quit():
     print("Goodbye")
+    quit()
 
 
 if __name__ == '__main__':
     clear()
     find_cwd()
+    print("Welcome to TIM v3.4!")
     main()
