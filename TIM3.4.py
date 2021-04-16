@@ -11,6 +11,9 @@ import time
 
 #Program Details Required
 
+#while true loop uses this to keep the mai() method running
+running = True
+
 # Check current directory for csv file, and set that as toOpen
 # Only 1 csv file should be present. Otherwise script gets confused.
 toOpen = None
@@ -33,10 +36,8 @@ def main():
     if k=='1':
         clear()
         print("Creating HTML Cards")
-        if check_csv():
-            pass
-        else:
-            print("CSV not found...")
+        check_csv()
+        
     elif k=='2':
         clear()
         print("Creating Lesson Structure\n")
@@ -44,14 +45,17 @@ def main():
         print("\n\nReady to Work!")
         input("\'Enter\' to Continue")
         clear()
-        main()      #BAD! If you run the program multiple times, you'll have a stack of instances running.  
+        return
+
     elif k=='q':
         clear()
         on_quit()
+        return
     else:
         clear()
         print("I wasn't expecting that...\n\n")
-        main()
+
+        return
 
 
 def check_lesson():
@@ -73,26 +77,29 @@ def check_csv():
     except FileNotFoundError:
         k = input("\'src\' folder not found. Do you want to create the lesson structure? y/n\n")
         clear()
+        while k not in ('y', 'yes', 'n', 'no'):
+            clear()
+            print("I wasn't expecting that...")
+            k = input("\'src\' folder not found. Do you want to create the lesson structure? y/n\n") #Slightly janky, but I think it works? 
+
+
         if k == ('y' or 'yes'):
             print("Creating Lesson Structure...")
             check_lesson()
         elif k == ('n' or 'no'):
             print("You will have to make sure the lesson structure is in place!")
-            main()
-        else:
-            print("I wasn't expecting that...")
-            input("Press \'Enter\' to try again")
-            clear()
-            check_csv()
+            return
+
+    find_csv("src")
+            
         
     
         
 
 def find_csv(path):
-    for file in os.listdir():
+    for file in os.listdir(path):
             if fnmatch.fnmatch(file, '*.csv'): 
-                set_csv(file)
-                return True
+                set_csv(os.path.join(path, file))
     return False
 
 
@@ -100,6 +107,7 @@ def set_csv(csv_file):
     print("Setting csv file to {}".format(csv_file))
     toOpen = os.path.join(dir_path, csv_file)
     try:
+        #TODO: TEST THIS BLOCK
         lesson_id = str(csv_file).split('-')[0].strip()    #Now you don't need to change the filename
     except:
         lesson_id = str(csv_file)[:-4]  #Drop'.csv' extension to get lessonID
@@ -341,6 +349,7 @@ def log(e):
 
 def on_quit():
     print("Goodbye")
+    running = False
     quit()
 
 
@@ -348,4 +357,8 @@ if __name__ == '__main__':
     clear()
     find_cwd()
     print("Welcome to TIM v3.4!")
-    main()
+    try:
+        while running:
+            main()
+    except KeyboardInterrupt:
+        on_quit()
