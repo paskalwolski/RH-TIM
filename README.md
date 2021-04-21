@@ -1,19 +1,28 @@
-# RH-TIM
+# RH-TIM and RH-LIAM
 The Incredible lessonMaker
+Lesson Inventory And Management
 
 TIM (The Incredible lessonMaker) is a utility developed for RocketHour (a division of ThinkCamp) to quickly apply a csv file - created from an excel sheet - to an HTML template ("HTMLTemplate.html") for upload to our Learning Management System. 
 
+LIAM (Lesson Inventory And Management) is a utility currently in development that allows for management of the entire lesson structure, using TIM to perform some functionality. See the "Coming Soon..." section below
+
+HAPpy is a utility used to view multiple HTML files assigned to a single lesson in one page, for ease of viewing and recap
+
 # Version #
-Currently, version 3.3 is in use. Version 4 is in development, but is more of a complete overhaul of the system to allow for increased functionality (such as including HAPpy, an additional auxilary script). 
+TIM: v3.3
+LIAM: v0.1
+HAPpy: v1
 
 # Install #
 No installation required! Simply run the script
 
 
 # Coming Soon... #
+UPDATE: With the introduction of LIAM, TIM will remain focused on the file creation process. LIAM will take over all lesson management from here on. The old description of programs has been left in, as it is quite good. 
+
 The goal for TIM is to provide a decentralised program that will allow all RocketHour lesson developers to easily view, edit, and manage ALL RocketHour lessons. The best methods to do this are yet to be discovered. 
 In the future, TIM will migrate to be a centralised program. However, that is not the current scope
-Currently, we utilise a combination of a Shared Google Drive to store all documentation,  AWS S3 Bucket (pls no steal) and our LMS to store the Complete HTML files in their final format (css for the HTML is found on the Bucket). TIM is a tool to access the Drive (and its per-lesson folder structure) in order to download lesson files and generate per-challenge or per-lesson (current HAPpy Functionality) HTML files from a central Python App
+Currently, we utilise a combination of a Shared Google Drive to store all documentation,  an AWS S3 Bucket (pls no steal) and our LMS (Moodle) to store the Complete HTML files in their final format (css for the HTML is found on the Bucket). TIM is a tool to access the Drive (and its per-lesson folder structure) in order to download lesson files and generate per-challenge or per-lesson (current HAPpy Functionality) HTML files from a central Python App
 
 Drive for Desktop is used at ThinkCamp. This allows a Google Drive to be mapped as a local drive (mounted at G: by default), and prior to API implementation, this is the drive that will be used to manouever files. 
 
