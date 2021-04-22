@@ -10,45 +10,67 @@ class Liam:
     def __init__(self, cwd):
         self.liam_loc = cwd
         print("I now know where I am: {}".format(self.liam_loc))
-        return
+
+        self.tracks = ("Pre-Beginner", "Beginner", "Intermediate", "Advanced")
+        self.drive_path = self.find_drive()
+
+        os.chdir(os.path.join(self.drive_path, "Shared Drives\\Product"))
+        clear()
+        print("Setup Complete")
 
     def main(self):
+            
+            self.main_action = self.select_dest_from_menu(("What do you want to do today?", ["Enter Lesson Details", "Explore Lesson Library"]))
+            if main_action is "Enter Lesson Details":
+                self.specific_lesson()
+            elif main_action == 1:
+                self.explore_tracks()
+
+    def explore_tracks(self):
+
         try:
-            drive_path =self.find_drive()
-            try:
-                os.chdir(os.path.join(drive_path, "Shared Drives\\Product"))
-                clear()
-                print("Setup Complete")
-                tracks = ("Pre-Beginner", "Beginner", "Intermediate", "Advanced")
-                prompt = "Select a track by number"
-                self.get_user_input_for_menu(tracks, prompt)
-                # os.chdir(os.path.join(self.get_user_input_for_menu(tracks, prompt)
+            # tracks = ("Pre-Beginner", "Beginner", "Intermediate", "Advanced")
+            response = self.select_dest_from_menu(("Select a track by number", self.tracks))
 
+            for i in range(len(self.tracks)):
+                if response in self.tracks[i]:
+                    os.chdir(self.tracks[i])
 
+        except FileNotFoundError as e:
+            print(e)
+            print("An Error occured going through the Google Drive")
 
-            except FileNotFoundError:
-                print("An Error occured going through the Google Drive")
-                raise KeyboardInterrupt
-        except KeyboardInterrupt:
-            print("Exiting...")
-            return None
         return
 
 
-    def get_user_input_for_menu(self, menu_tuple, user_prompt):
+    def select_dest_from_menu(self, menu_tuple):
+
+        user_prompt, menu_list = menu_tuple
+
+        clear()
         while True:
-            print(len(menu_tuple))
-            for i in range(len(menu_tuple)):
-                print("{}. {}".format(i, menu_tuple[i]))
-            user_input = input(user_prompt, end = "\n\n")
+            print("Size of Menu: {}".format(len(menu_list)))
+            for i in range(len(menu_list)):
+                print("{}. {}".format(i, menu_list[i]))
+
+            user_input =input(user_prompt + "\n\n")
             if user_input=='q':
                 raise KeyboardInterrupt
-            if user_input not in range(len(menu_tuple)):
-                clear()
+            try:
+                user_input = int(user_input)
+            except TypeError as e:
+                print("Please enter a valid option")
+                continue
+
+            # except user_input not in range(len(menu_tuple)):
+            #     print("")
+
+            if user_input not in range(len(menu_list)):
+                # clear()
                 print("Please enter a valid option")
                 continue
             break
-        return user_input
+        return menu_list[user_input]
 
 
     def find_drive(self):
@@ -75,27 +97,37 @@ class Liam:
                 continue    #continue outer
             break   #break outer
         print("Found Drive at {}".format(vol_path))
-        return vol_path
+        try:
+            os.chdir(os.path.join(self.drive_path, "Shared Drives\\Product"))
+        except FileNotFoundError:
+            print("Error Occured Switching to Product Folder")
+        clear()
+        print("Setup Complete")
+
+        return
 
 
-    def clear(self):
-        os.system("cls")
-    
-
+#Util Methods
 
 def clear():
     os.system("cls")
 
 def on_exit():
-    print("Goodbye!")
+    print("Exiting...")
 
+    print("Goodbye!")
     exit()
 
 
 if __name__ == '__main__':
-    os.system("cls")
-    print("Welcome to LIAM!")
-    liam = Liam(os.getcwd())
-    liam.main()
-    input("Enter to exit")
-    on_exit()
+    try:
+        os.system("cls")
+        print("Welcome to LIAM!")
+        liam = Liam(os.getcwd())
+        liam.main()
+        input("Enter to exit")
+
+        raise KeyboardInterrupt
+
+    except KeyboardInterrupt:
+        on_exit()
