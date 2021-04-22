@@ -210,7 +210,8 @@ try:
             except:
                 print("Failed")
         raise Exception
-    except Exception:
+    except Exception as e:
+        print(e)
         print("Error fetching Template. Please check your network connection")
     file = open(template_path, mode='r')
     template = file.read()
