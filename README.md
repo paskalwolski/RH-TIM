@@ -66,3 +66,12 @@ API KEYS #
 ----------
 TIM currently has no use for API keys, as all work has been done locally. However, Drive and S3 API's are on the Horizon. 
 Current plan is to generate a .env file on 'install', and store API keys there. Login process has not been thought out, but will be at some point
+
+# RH-OLI
+Online Lesson Interface
+
+This is the online component of TIM and LIAM
+
+OLI will consist of an online interface that will handle the front end of lesson management. Currently OLI seems to be on track to be written in JS, but that may change at a moments notice. Very much still in development
+
+
