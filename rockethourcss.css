@@ -1,0 +1,108 @@
+html{
+min-height: 100%;
+position:relative;
+}
+body {
+color: #42444E;
+font-family: "Roboto","Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+background-image: linear-gradient(145deg, #5C4A94 0%,#266390 40%, #FFF 90%);
+height: 100%;
+}
+.rhmain_div{
+width: 880px;   
+margin: auto;
+}
+.rhflex-box{
+display:flex;
+flex-direction: row;
+justify-content: center;
+width:100%;
+margin: -10px 0;
+}
+.rhsection{
+background-color:white;
+border-style:solid;
+border-width:1.5px;
+border-color:#071419;
+border-radius: 20px;
+-moz-border-radius: 12px;
+margin: 10px;
+padding:15px;
+}
+.rhhints, .rhinstructions{
+flex:2;
+width:auto;
+line-height: 1.6;
+}
+.rhinstructions{
+margin-right: 5px;
+margin-left: 0;
+}
+.rhhints{    
+margin-left: 5px;
+margin-right:0;
+}
+.rhtitle{
+width:100%;
+}
+
+.rhexample{
+width:100%;
+padding: 15px 32px;
+text-align: center;
+}
+.rhcenter{
+text-align:center;
+font-weight:700;
+}
+.rhbutton {
+background-color: #266390;
+font-weight:900;
+border: black solid;
+color: white;
+border-radius: 15px;
+padding: 15px 32px;
+text-align: center;
+display: block;
+margin: auto;
+font-size: 16px;
+transition-duration: 0.4s;
+}
+.rhbutton:hover {
+    background-image:none;
+background-color: #D4E0E9;
+color: black;
+cursor:pointer;
+}
+.rhreplit{
+    width: 800px;
+    height: 400px;
+}
+
+/*image processing*/
+
+.hintimage{
+    display:block;
+    margin: 0 auto;
+    width:300px;
+    text-align:center;
+}
+
+.exampleimage{
+    display:block;
+    margin: 0 auto;
+    width:800px;
+    text-align:center;
+}
+
+/*adding mvertical margin in the instructions list*/
+.rhinstructions>ol>li{
+    margin-bottom: 20px;}
+    
+.alertbutton{
+    background-color: orange;
+
+}
+.alertbutton:hover{
+    background-color: peru;
+}
