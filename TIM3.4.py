@@ -141,17 +141,14 @@ try:
                         else:
                             html = html_lines["project"].format(LINK=value, WIDTH=extra[0], HEIGHT=extra[1])
                     elif "button" in type:
-                        if "instruction" in type:
+                        if "instruction" in type:   #Check to see if 'alertbutton' class is necessary
                             html = html_lines["insButton"]
                             actions.append("Created Alert Button")
-                            print(f"Working with {currentChal}")
-                            print(html)
-                        else:
-                            actions.append("Created Normal Button")
+                        else:                       #Default if 'alertbutton' is not required
                             html = html_lines["button"]
                         if ".zip" in extra[0]:
                             newlink = bucket + "/" + extra[0]
-                            html = html.format(LINK=newlink, TEXT=value)
+                            html = html.format(LINK=newlink, TEXT=value)    #This uses pre-fetched button text now - does not pull from dict here!
                             actions.append("Updated download link in line "+ str(rownum))
                         else:
                             html = html.format(LINK=extra[0], TEXT=value)
